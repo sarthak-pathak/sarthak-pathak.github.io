@@ -1,203 +1,806 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sarthak Pathak — Portfolio</title>
+  <meta name="description" content="Sarthak Pathak — MIS student focused on data analytics, financial systems, and web application development." />
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<title>Sarthak Pathak</title>
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1020;
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.14);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.68);
+      --muted2: rgba(255,255,255,0.55);
+      --brand:#7C5CFF;
+      --brand2:#22D3EE;
+      --accent:#60A5FA;
+      --shadow: 0 24px 80px rgba(0,0,0,0.55);
+      --shadow2: 0 12px 40px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1100px;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 20% 15%, rgba(124,92,255,0.22), transparent 60%),
+                  radial-gradient(900px 600px at 80% 25%, rgba(34,211,238,0.18), transparent 55%),
+                  radial-gradient(1000px 700px at 50% 85%, rgba(96,165,250,0.18), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
 
-<style>
+    /* subtle noise overlay */
+    .noise{
+      pointer-events:none;
+      position:fixed; inset:0;
+      opacity:0.08;
+      mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size:220px 220px;
+      z-index:0;
+    }
 
-body{
-font-family:'Inter',sans-serif;
-margin:0;
-background:linear-gradient(135deg,#f8fafc,#eef2ff);
-color:#111;
-}
+    /* animated blobs */
+    .blob{
+      position:fixed;
+      width:520px; height:520px;
+      filter: blur(60px);
+      opacity:0.35;
+      border-radius: 50%;
+      z-index:0;
+      animation: float 10s ease-in-out infinite;
+      transform: translate3d(0,0,0);
+    }
+    .blob.one{
+      left:-140px; top:-170px;
+      background: radial-gradient(circle at 30% 30%, rgba(124,92,255,1), rgba(124,92,255,0.0) 65%);
+      animation-duration: 12s;
+    }
+    .blob.two{
+      right:-180px; top:40px;
+      background: radial-gradient(circle at 30% 30%, rgba(34,211,238,1), rgba(34,211,238,0.0) 65%);
+      animation-duration: 13s;
+      animation-delay: -2s;
+    }
+    .blob.three{
+      left:18%; bottom:-240px;
+      width:640px; height:640px;
+      background: radial-gradient(circle at 30% 30%, rgba(96,165,250,1), rgba(96,165,250,0.0) 65%);
+      animation-duration: 14s;
+      animation-delay: -5s;
+    }
+    @keyframes float{
+      0%,100%{ transform: translate(0,0) scale(1); }
+      50%{ transform: translate(20px,-18px) scale(1.03); }
+    }
 
-/* container */
+    /* layout */
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 22px 72px;
+    }
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:80px 30px;
-}
+    /* top nav */
+    .nav{
+      position:sticky; top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(10,14,28,0.72), rgba(10,14,28,0.40));
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .navInner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:0.2px;
+      color:var(--text);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 6px rgba(124,92,255,0.14);
+    }
 
-/* navigation */
+    .links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .links a{
+      color: var(--muted);
+      text-decoration:none;
+      font-weight:500;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius: 10px;
+      transition: 0.2s ease;
+    }
+    .links a:hover{ color: var(--text); background: rgba(255,255,255,0.06); }
+    .links a.active{ color: var(--text); background: rgba(255,255,255,0.10); }
 
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:25px 40px;
-position:sticky;
-top:0;
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
-z-index:10;
-}
+    .cta{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 12px;
+      font-weight:600;
+      font-size:14px;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      box-shadow: var(--shadow2);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .btn.primary{
+      border: none;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color: #071022;
+      box-shadow: 0 18px 60px rgba(124,92,255,0.22);
+    }
+    .btn.primary:hover{ filter: brightness(1.03); }
 
-nav a{
-margin-left:25px;
-text-decoration:none;
-color:#444;
-font-weight:500;
-transition:0.2s;
-}
+    /* hero */
+    .hero{
+      padding: 56px 0 26px;
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 26px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{ grid-template-columns:1fr; }
+    }
 
-nav a:hover{
-color:#000;
-}
+    .heroCard{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 200px at 20% 0%, rgba(124,92,255,0.28), transparent 60%),
+                  radial-gradient(500px 220px at 80% 10%, rgba(34,211,238,0.22), transparent 55%);
+      opacity:0.85;
+      pointer-events:none;
+    }
+    .heroContent{
+      position:relative;
+      z-index:1;
+    }
 
-/* hero */
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:13px;
+      font-weight:600;
+      color: rgba(255,255,255,0.78);
+      background: rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      padding:8px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .kicker .spark{
+      width:8px; height:8px;
+      border-radius:50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 6px rgba(34,211,238,0.12);
+    }
 
-.hero h1{
-font-size:64px;
-margin-bottom:10px;
-}
+    h1{
+      margin:0 0 12px;
+      font-size: 56px;
+      line-height: 1.02;
+      letter-spacing: -1.2px;
+    }
+    @media (max-width: 520px){ h1{ font-size: 42px; } }
 
-.hero p{
-font-size:20px;
-color:#555;
-max-width:700px;
-}
+    .subtitle{
+      margin:0 0 18px;
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .pillRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 18px 0 0;
+    }
+    .pill{
+      font-size:13px;
+      color: rgba(255,255,255,0.78);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+    }
 
-/* section */
+    .sideCard{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow2);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .sideTop{
+      display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+    }
+    .sideTitle{
+      margin:0;
+      font-size:14px;
+      color: rgba(255,255,255,0.80);
+      font-weight:700;
+      letter-spacing:0.3px;
+      text-transform:uppercase;
+    }
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(124,92,255,0.20);
+      border:1px solid rgba(124,92,255,0.30);
+      color: rgba(255,255,255,0.85);
+      white-space:nowrap;
+    }
+    .metricGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .metric{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+    }
+    .metric .num{
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:-0.2px;
+    }
+    .metric .lab{
+      margin-top:4px;
+      font-size:12px;
+      color: var(--muted2);
+    }
+    .sideLinks{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+    .mini{
+      font-size:13px;
+      padding:9px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      text-decoration:none;
+      transition: 0.18s ease;
+    }
+    .mini:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.10); }
 
-.section{
-margin-top:80px;
-}
+    /* sections */
+    .section{
+      margin-top: 34px;
+      padding-top: 22px;
+    }
+    .sectionHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:10px;
+      margin-bottom: 14px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing:-0.2px;
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted2);
+      font-size: 14px;
+    }
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, rgba(124,92,255,0.35), rgba(34,211,238,0.25), rgba(255,255,255,0.06));
+      border-radius:999px;
+      margin: 14px 0 18px;
+    }
 
-.section h2{
-font-size:28px;
-margin-bottom:40px;
-}
+    /* projects */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 6;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+    }
+    @media (max-width: 920px){ .card{ grid-column: span 12; } }
 
-/* projects */
+    .cardInner{
+      padding: 18px 18px 16px;
+    }
+    .tagRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom: 10px;
+    }
+    .tag{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.78);
+    }
+    .card h3{
+      margin: 2px 0 8px;
+      font-size: 18px;
+      letter-spacing:-0.2px;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .cardFooter{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding: 14px 18px 16px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.10);
+    }
+    .cardFooter a{
+      text-decoration:none;
+      font-weight:700;
+      color: rgba(255,255,255,0.92);
+    }
+    .cardFooter a:hover{ text-decoration:underline; }
+    .iconLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.92);
+      text-decoration:none;
+      font-weight:700;
+      font-size: 13px;
+      transition: 0.18s ease;
+      white-space:nowrap;
+    }
+    .iconLink:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.10); }
 
-.projects{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
-}
+    /* about / resume */
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 920px){ .twoCol{ grid-template-columns: 1fr; } }
 
-.project{
-background:white;
-padding:30px;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-transition:all 0.25s ease;
-}
+    .panel{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+    }
+    .panel h3{ margin:0 0 8px; font-size:16px; }
+    .panel p{ margin:0; color: var(--muted); line-height:1.55; font-size:14px; }
+    .list{
+      margin: 12px 0 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .list li{
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.82);
+      font-size: 14px;
+    }
+    .muted{ color: var(--muted2); }
 
-.project:hover{
-transform:translateY(-6px);
-box-shadow:0 18px 40px rgba(0,0,0,0.12);
-}
+    /* contact */
+    .contactRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+    }
 
-.project p{
-color:#666;
-font-size:15px;
-}
+    /* footer */
+    footer{
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
 
-.project a{
-display:inline-block;
-margin-top:10px;
-color:#2563eb;
-font-weight:500;
-text-decoration:none;
-}
+    /* scroll reveal */
+    .reveal{ opacity:0; transform: translateY(10px); transition: 0.6s ease; }
+    .reveal.show{ opacity:1; transform: translateY(0); }
 
-.project a:hover{
-text-decoration:underline;
-}
-
-</style>
-
+    /* small screens */
+    @media (max-width: 520px){
+      .navInner{ padding: 12px 14px; }
+      .wrap{ padding: 0 14px 60px; }
+      .hero{ padding: 40px 0 20px; }
+      .heroCard{ padding: 20px; }
+      .sideCard{ padding: 18px; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="noise"></div>
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
 
-<nav>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="navInner">
+      <a class="brand" href="#top">
+        <span class="dot"></span>
+        <span>Sarthak Pathak</span>
+      </a>
 
-<div><strong>Sarthak Pathak</strong></div>
+      <div class="links" id="navLinks">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </div>
 
-<div>
-<a href="#work">Work</a>
-<a href="#about">About</a>
-<a href="resume.pdf">Resume</a>
-<a href="#contact">Contact</a>
-</div>
+      <div class="cta">
+        <a class="btn" href="https://github.com/sarthak-pathak" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn primary" href="resume.pdf" target="_blank" rel="noreferrer">Download Resume</a>
+      </div>
+    </div>
+  </div>
 
-</nav>
+  <div id="top" class="wrap">
 
-<div class="container">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="heroCard reveal">
+        <div class="heroContent">
+          <div class="kicker"><span class="spark"></span> MIS • Data Analytics • Web Apps</div>
+          <h1>Hi, I’m Sarthak.</h1>
+          <p class="subtitle">
+            Management Information Systems student at Temple University focused on <b>data analytics</b>,
+            <b>financial reporting</b>, and <b>web application development</b>. I like building clean tools that
+            turn messy data into clear decisions.
+          </p>
 
-<section class="hero">
+          <div class="pillRow">
+            <div class="pill">Python • Java • JavaScript</div>
+            <div class="pill">Excel (Advanced) • Tableau</div>
+            <div class="pill">MySQL • Microsoft Access</div>
+            <div class="pill">REST APIs • HTML/CSS</div>
+          </div>
+        </div>
+      </div>
 
-<h1>Hi, I'm Sarthak.</h1>
+      <div class="sideCard reveal">
+        <div class="sideTop">
+          <p class="sideTitle">Quick Snapshot</p>
+          <span class="badge">Open to Internships</span>
+        </div>
 
-<p>
-Management Information Systems student at Temple University focused on data analytics,
-financial systems, and web application development.
-</p>
+        <div class="metricGrid">
+          <div class="metric">
+            <div class="num">ERA</div>
+            <div class="lab">Junior Analyst</div>
+          </div>
+          <div class="metric">
+            <div class="num">Temple</div>
+            <div class="lab">Fox School of Business</div>
+          </div>
+          <div class="metric">
+            <div class="num">3.1</div>
+            <div class="lab">Overall GPA</div>
+          </div>
+          <div class="metric">
+            <div class="num">3.4</div>
+            <div class="lab">Semester GPA</div>
+          </div>
+        </div>
 
-</section>
+        <div class="sideLinks">
+          <a class="mini" href="mailto:sarthak.pathak@temple.edu">Email</a>
+          <a class="mini" href="https://linkedin.com/in/sarthakpathak-" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="mini" href="https://community.mis.temple.edu/sarthakpathak/" target="_blank" rel="noreferrer">Portfolio</a>
+        </div>
+      </div>
+    </div>
 
-<section class="section" id="work">
+    <!-- WORK -->
+    <section id="work" class="section">
+      <div class="sectionHead reveal">
+        <h2>Selected Work</h2>
+        <p>Projects that show engineering + business impact</p>
+      </div>
+      <div class="divider"></div>
 
-<h2>Selected Work</h2>
+      <div class="grid">
+        <article class="card reveal">
+          <div class="cardInner">
+            <div class="tagRow">
+              <span class="tag">JavaScript</span><span class="tag">HTML/CSS</span><span class="tag">Finance</span>
+            </div>
+            <h3>Loan Repayment Calculator</h3>
+            <p>Web calculator that computes amortized monthly payments with validation + clear UI updates.</p>
+          </div>
+          <div class="cardFooter">
+            <a href="https://github.com/sarthak-pathak/Financial-Calculator-Web-Application" target="_blank" rel="noreferrer">GitHub Repo</a>
+            <a class="iconLink" href="https://github.com/sarthak-pathak/Financial-Calculator-Web-Application" target="_blank" rel="noreferrer">View →</a>
+          </div>
+        </article>
 
-<div class="projects">
+        <article class="card reveal">
+          <div class="cardInner">
+            <div class="tagRow">
+              <span class="tag">Python</span><span class="tag">Analytics</span><span class="tag">Health</span>
+            </div>
+            <h3>Calorify — Calorie Tracking App</h3>
+            <p>Python tool that calculates personalized targets and tracks progress using structured logic.</p>
+          </div>
+          <div class="cardFooter">
+            <a href="https://github.com/sarthak-pathak/Calorify" target="_blank" rel="noreferrer">GitHub Repo</a>
+            <a class="iconLink" href="https://github.com/sarthak-pathak/Calorify" target="_blank" rel="noreferrer">View →</a>
+          </div>
+        </article>
 
-<div class="project">
-<h3>Loan Repayment Calculator</h3>
-<p>JavaScript financial calculator implementing loan amortization logic and dynamic UI updates.</p>
-<a href="https://github.com/sarthak-pathak/Financial-Calculator-Web-Application">View Project →</a>
-</div>
+        <article class="card reveal">
+          <div class="cardInner">
+            <div class="tagRow">
+              <span class="tag">Python</span><span class="tag">Validation</span><span class="tag">Learning</span>
+            </div>
+            <h3>German Translation Application</h3>
+            <p>Interactive language-learning simulator with structured validation and dynamic quiz logic.</p>
+          </div>
+          <div class="cardFooter">
+            <a href="https://github.com/sarthak-pathak/German-Translation-Application" target="_blank" rel="noreferrer">GitHub Repo</a>
+            <a class="iconLink" href="https://github.com/sarthak-pathak/German-Translation-Application" target="_blank" rel="noreferrer">View →</a>
+          </div>
+        </article>
 
-<div class="project">
-<h3>Calorify – Calorie Tracking App</h3>
-<p>Python analytics tool calculating personalized calorie targets and tracking fitness progress.</p>
-<a href="https://github.com/sarthak-pathak/Calorify">View Project →</a>
-</div>
+        <article class="card reveal">
+          <div class="cardInner">
+            <div class="tagRow">
+              <span class="tag">Web</span><span class="tag">Optimization</span><span class="tag">Strategy</span>
+            </div>
+            <h3>Aptitude Calculator — Exam Time Manager</h3>
+            <p>Web-based tool that helps plan time allocation and estimate scoring using probability-style logic.</p>
+          </div>
+          <div class="cardFooter">
+            <a href="https://github.com/sarthak-pathak/Aptitude-Calculator" target="_blank" rel="noreferrer">GitHub Repo</a>
+            <a class="iconLink" href="https://github.com/sarthak-pathak/Aptitude-Calculator" target="_blank" rel="noreferrer">View →</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-<div class="project">
-<h3>German Translation Application</h3>
-<p>Python language-learning simulator with dynamic quiz validation.</p>
-<a href="https://github.com/sarthak-pathak/German-Translation-Application">View Project →</a>
-</div>
+    <!-- ABOUT + SKILLS -->
+    <section id="about" class="section">
+      <div class="sectionHead reveal">
+        <h2>About</h2>
+        <p>What I’m strong at (and what I’m aiming for)</p>
+      </div>
+      <div class="divider"></div>
 
-</div>
+      <div class="twoCol">
+        <div class="panel reveal">
+          <h3>Background</h3>
+          <p>
+            I’m a Management Information Systems student at Temple University (Fox School of Business) with hands-on experience
+            working with <b>Access + Excel</b> datasets, building internal reporting workflows, and developing web apps.
+            I’m targeting roles in <b>data analytics</b>, <b>business intelligence</b>, and <b>technology consulting</b>.
+          </p>
+          <ul class="list">
+            <li><b>Strength:</b> turning raw data into dashboards + insights <span class="muted">(Excel/Tableau)</span></li>
+            <li><b>Strength:</b> building practical tools <span class="muted">(JavaScript/Python)</span></li>
+            <li><b>Interest:</b> finance + analytics + systems</li>
+          </ul>
+        </div>
 
-</section>
+        <div class="panel reveal">
+          <h3>Skills</h3>
+          <ul class="list">
+            <li><b>Languages:</b> Python, Java, JavaScript</li>
+            <li><b>Data Tools:</b> Excel (Advanced), Tableau</li>
+            <li><b>Databases:</b> MySQL, Microsoft Access</li>
+            <li><b>Web:</b> HTML, CSS, REST APIs</li>
+            <li><b>Tools:</b> Office 365, Trello, Asana</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-<section class="section" id="about">
+    <!-- RESUME -->
+    <section id="resume" class="section">
+      <div class="sectionHead reveal">
+        <h2>Resume</h2>
+        <p>View in browser or download</p>
+      </div>
+      <div class="divider"></div>
 
-<h2>About</h2>
+      <div class="twoCol">
+        <div class="panel reveal">
+          <h3>Quick Links</h3>
+          <p class="muted">These should match what recruiters click first.</p>
+          <div class="contactRow">
+            <a class="btn primary" href="resume.pdf" target="_blank" rel="noreferrer">Open Resume (PDF)</a>
+            <a class="btn" href="resume.pdf" download>Download</a>
+          </div>
+          <div class="contactRow">
+            <a class="btn" href="https://linkedin.com/in/sarthakpathak-" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="https://github.com/sarthak-pathak" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href="https://community.mis.temple.edu/sarthakpathak/" target="_blank" rel="noreferrer">Portfolio</a>
+          </div>
+        </div>
 
-<p>
-I am a Management Information Systems student at Temple University's Fox School of Business
-with experience analyzing multi-million-dollar research datasets and developing Python and
-JavaScript applications.
-</p>
+        <div class="panel reveal">
+          <h3>Resume Preview</h3>
+          <p class="muted">If preview doesn’t load on some browsers, use “Open Resume (PDF)”.</p>
+          <div style="margin-top:12px; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.18);">
+            <iframe title="Resume Preview" src="resume.pdf" style="width:100%; height:380px; border:0;"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</section>
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="sectionHead reveal">
+        <h2>Contact</h2>
+        <p>Fast ways to reach me</p>
+      </div>
+      <div class="divider"></div>
 
-<section class="section" id="contact">
+      <div class="panel reveal">
+        <p style="margin:0 0 10px;">
+          <b>Email:</b> <a href="mailto:sarthak.pathak@temple.edu" style="color:rgba(255,255,255,0.92)">sarthak.pathak@temple.edu</a>
+        </p>
+        <p style="margin:0 0 10px;">
+          <b>Location:</b> Philadelphia, PA
+        </p>
+        <div class="contactRow">
+          <a class="btn primary" href="mailto:sarthak.pathak@temple.edu?subject=Interview%20-%20Sarthak%20Pathak">Email Me</a>
+          <a class="btn" href="https://linkedin.com/in/sarthakpathak-" target="_blank" rel="noreferrer">Message on LinkedIn</a>
+          <a class="btn" href="https://github.com/sarthak-pathak" target="_blank" rel="noreferrer">See GitHub</a>
+        </div>
+      </div>
+    </section>
 
-<h2>Contact</h2>
+    <footer class="reveal">
+      <div>© <span id="y"></span> Sarthak Pathak</div>
+      <div class="muted">Built with HTML/CSS • Hosted on GitHub Pages</div>
+    </footer>
+  </div>
 
-<p>Email: sarthak.pathak@temple.edu</p>
-<p>GitHub: github.com/sarthak-pathak</p>
+  <script>
+    // year
+    document.getElementById("y").textContent = new Date().getFullYear();
 
-</section>
+    // reveal on scroll
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add("show");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el=>io.observe(el));
 
-</div>
+    // active nav link
+    const sections = ["work","about","resume","contact"].map(id => document.getElementById(id));
+    const navLinks = Array.from(document.querySelectorAll("#navLinks a"));
 
+    const setActive = () => {
+      let idx = 0;
+      const fromTop = window.scrollY + 120;
+      sections.forEach((sec, i) => {
+        if (sec.offsetTop <= fromTop) idx = i;
+      });
+      navLinks.forEach(a => a.classList.remove("active"));
+      navLinks[idx]?.classList.add("active");
+    };
+    window.addEventListener("scroll", setActive, { passive: true });
+    setActive();
+  </script>
 </body>
-
 </html>
