@@ -10,6 +10,66 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
+
+      <style>
+
+:root {
+  --bg: #08101f;
+  --bg-2: #0d1730;
+  --panel: rgba(255,255,255,0.08);
+  --panel-2: rgba(255,255,255,0.06);
+  --line: rgba(255,255,255,0.12);
+  --text: #f4f7fb;
+  --muted: rgba(244,247,251,0.74);
+  --muted-2: rgba(244,247,251,0.58);
+  --brand: #7c9cff;
+  --brand-2: #63d8ff;
+  --glow: rgba(124,156,255,0.32);
+  --success: #74f0b3;
+  --max: 1180px;
+  --radius: 22px;
+  --shadow: 0 20px 70px rgba(0,0,0,0.35);
+}
+
+/* ADD PROFILE CARD CODE HERE */
+
+.profile-card{
+width:300px;
+height:360px;
+border-radius:26px;
+overflow:hidden;
+position:relative;
+
+border:1px solid rgba(255,255,255,0.15);
+background:rgba(255,255,255,0.05);
+
+box-shadow:
+0 30px 80px rgba(0,0,0,0.6),
+0 0 50px rgba(124,156,255,0.25);
+
+backdrop-filter:blur(20px);
+
+transform-style:preserve-3d;
+transition:transform .25s ease;
+}
+
+.profile-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:26px;
+}
+
+.profile-card::after{
+content:"";
+position:absolute;
+inset:-2px;
+border-radius:26px;
+background:linear-gradient(120deg,#7c9cff,#63d8ff,#7c9cff);
+filter:blur(12px);
+opacity:.4;
+z-index:-1;
+}
       /* PROFILE CARD */
 
 .profile-wrapper{
@@ -19,19 +79,20 @@ align-items:center;
 }
 
 .profile-card{
-position:relative;
 width:300px;
 height:360px;
 border-radius:26px;
 overflow:hidden;
+position:relative;
 
-background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.15);
-backdrop-filter:blur(20px);
+background:rgba(255,255,255,0.05);
 
 box-shadow:
-0 25px 80px rgba(0,0,0,0.6),
+0 30px 80px rgba(0,0,0,0.6),
 0 0 50px rgba(124,156,255,0.25);
+
+backdrop-filter:blur(20px);
 
 transform-style:preserve-3d;
 transition:transform .25s ease;
@@ -69,7 +130,6 @@ animation:shine 1.2s forwards;
 @keyframes shine{
 100%{left:125%;}
 }
-
 /* glow border */
 
 .profile-card::after{
@@ -211,13 +271,14 @@ z-index:-1;
       background: rgba(255,255,255,0.07);
       color: var(--text);
     }
-
-    .hero {
-      padding: 60px 0 26px;
-      display: grid;
-      grid-template-columns:320px 1fr;
-      gap: 40px;
-      align-items:center;
+    
+.hero{
+padding:80px 0 40px;
+display:grid;
+grid-template-columns:320px 1fr 320px;
+gap:40px;
+align-items:center;
+}
     }
 
     .hero-main,
@@ -718,6 +779,9 @@ z-index:-1;
 
   <main id="top" class="wrap">
     <section class="hero">
+      <div class="profile-card">
+<img src="profile.jpg" alt="Sarthak Pathak">
+</div>
       <div class="profile-wrapper">
 <div class="profile-card">
 <img src="profile.jpg" alt="Sarthak Pathak">
