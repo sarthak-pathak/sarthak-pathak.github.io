@@ -791,14 +791,6 @@
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  /* ── Progress bar ── */
-  const pb = document.getElementById('pb');
-  window.addEventListener('scroll', () => {
-    const s = document.documentElement.scrollTop;
-    const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    pb.style.width = (s / h * 100) + '%';
-  });
-
   /* ── Cursor ── */
   const cur = document.getElementById('cur'), ring = document.getElementById('ring');
   let mx=0,my=0,rx=0,ry=0;
