@@ -26,7 +26,51 @@
       --radius: 22px;
       --shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
     }
+    
+.profile-card{
+position:relative;
+width:260px;
+height:320px;
+border-radius:20px;
+overflow:hidden;
+background:linear-gradient(145deg,#111827,#1f2937);
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
+transform-style:preserve-3d;
+transition:transform .2s ease;
+}
 
+.profile-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:20px;
+}
+
+.profile-card::before{
+content:"";
+position:absolute;
+top:0;
+left:-75%;
+width:50%;
+height:100%;
+background:linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.5),
+transparent
+);
+transform:skewX(-25deg);
+}
+
+.profile-card:hover::before{
+animation:shine 1s forwards;
+}
+
+@keyframes shine{
+100%{
+left:125%;
+}
+}
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -644,7 +688,10 @@
   </div>
 
   <main id="top" class="wrap">
-    <section class="hero">
+    <section class="hero"> 
+      <div class="profile-card">
+<img src="profile.jpg" alt="Sarthak Pathak">
+</div>
       <div class="hero-main reveal">
         <div class="eyebrow"><span class="pulse"></span> Open to internships and analyst roles</div>
         <h2>Building clean, useful tools for data, reporting, and decision-making.</h2>
@@ -915,6 +962,24 @@
     }, { threshold: 0.15 });
     revealEls.forEach(el => observer.observe(el));
   </script>
+
+const card = document.querySelector(".profile-card");
+
+card.addEventListener("mousemove",(e)=>{
+const rect = card.getBoundingClientRect();
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+const rotateX = -(y - rect.height/2)/15;
+const rotateY = (x - rect.width/2)/15;
+
+card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+
+card.addEventListener("mouseleave",()=>{
+card.style.transform="rotateX(0) rotateY(0)";
+});
+  
 </body>
 </html>
 can you create the files for me now based on all my information and the website thing
